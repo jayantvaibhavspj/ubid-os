@@ -15,8 +15,12 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     const apiUrl = process.env.REACT_APP_API_URL || 'https://backend-rho-pearl.vercel.app';
+    console.log('🚀 Fetching dashboard data from:', apiUrl);
+    
     try {
+      console.log('📡 Calling /api/statistics...');
       const statsRes = await axios.get(`${apiUrl}/api/statistics`);
+      console.log('✅ Statistics received:', statsRes.data);
       setStatistics(statsRes.data);
       
       // Set default status distribution
@@ -26,25 +30,75 @@ const Dashboard = () => {
         GHOST: statsRes.data.ghost_businesses || 0,
         CLOSED: (statsRes.data.total_records || 0) - (statsRes.data.active_businesses || 0) - (statsRes.data.dormant_businesses || 0) - (statsRes.data.ghost_businesses || 0)
       };
+      console.log('📊 Status distribution:', statusData);
       setStatusDistribution(statusData);
       setLoading(false);
     } catch (err) {
-      console.error('API Error:', err);
-      setError('Failed to load dashboard data. Please try refreshing the page.');
+      console.error('❌ API Error Details:', {
+        message: err.message,
+        code: err.code,
+        response: err.response?.data,
+        status: err.response?.status,
+        url: err.config?.url
+      });
+      setError(`Failed to load dashboard data. Check console for details.`);
       setLoading(false);
     }
   };
 
   if (loading) {
-    return <div className="text-center py-12">Loading dashboard...</div>;
+    return (
+      <div className="text-center py-12">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading dashboard...</p>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-red-600 text-center py-12">{error}</div>;
+    return (
+      <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+        <p className="text-red-700 font-semibold mb-2">⚠️ Error Loading Dashboard</p>
+        <p className="text-red-600 text-sm mb-4">{error}</p>
+        <p className="text-red-600 text-sm mb-4">API URL: {process.env.REACT_APP_API_URL || 'https://backend-rho-pearl.vercel.app'}</p>
+        <button 
+          onClick={() => {
+            setLoading(true);
+            setError(null);
+            fetchData();
+          }}
+          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+        >
+          Retry
+        </button>
+      </div>
+    );
   }
 
   if (!statistics) {
-    return <div className="text-center py-12">No data available</div>;
+    return (
+      <div className="text-center py-12 bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+        <p className="text-yellow-700">No data available. Using default values...</p>
+        <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white p-4 rounded shadow">
+            <p className="text-gray-600 text-sm">Total Records</p>
+            <p className="text-2xl font-bold text-purple-600">223</p>
+          </div>
+          <div className="bg-white p-4 rounded shadow">
+            <p className="text-gray-600 text-sm">UBIDs</p>
+            <p className="text-2xl font-bold text-blue-600">90</p>
+          </div>
+          <div className="bg-white p-4 rounded shadow">
+            <p className="text-gray-600 text-sm">Ghost Businesses</p>
+            <p className="text-2xl font-bold text-red-600">18</p>
+          </div>
+          <div className="bg-white p-4 rounded shadow">
+            <p className="text-gray-600 text-sm">Active</p>
+            <p className="text-2xl font-bold text-green-600">58</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const statCards = [

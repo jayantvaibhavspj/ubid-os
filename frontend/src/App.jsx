@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Activity, Ghost, Database, FileSearch, BarChart3 } from 'lucide-react';
+import ErrorBoundary from './components/ErrorBoundary';
 import Dashboard from './components/Dashboard';
 import GhostBusinesses from './components/GhostBusinesses';
 import EntityResolver from './components/EntityResolver';
@@ -16,7 +17,8 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <ErrorBoundary>
+      <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="gradient-bg text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -78,7 +80,8 @@ function App() {
           </p>
         </div>
       </footer>
-    </div>
+      </div>
+    </ErrorBoundary>
   );
 }
 
