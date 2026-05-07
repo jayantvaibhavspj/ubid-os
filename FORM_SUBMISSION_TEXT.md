@@ -83,20 +83,20 @@ https://example.com/ubid-os-demo-video
 
 ## Form Field 8: Demo Link
 
-http://localhost:3000
+https://frontend-jayantvaibhav.vercel.app
 
-**Instructions**:
-1. Ensure backend is running: `cd backend && python -m uvicorn app.main:app --host 0.0.0.0 --port 8000`
-2. Ensure frontend is running: `cd frontend && npm start`
-3. Access at http://localhost:3000
-4. Explore Dashboard, Ghost Businesses, Entity Resolver, Query Interface tabs
-5. API documentation: http://localhost:8000/docs
+**Live Demo** (No Installation Required):
+1. Visit: https://frontend-jayantvaibhav.vercel.app
+2. Explore Dashboard, Ghost Businesses, Entity Resolver, Query Interface tabs
+3. Backend API: https://backend-rho-pearl.vercel.app
+4. API documentation: https://backend-rho-pearl.vercel.app/docs
+5. Application is fully functional and ready for review
 
 ---
 
 ## Form Field 9: Repository URL
 
-https://github.com/ai-bharat/ubid-os
+https://github.com/jayantvaibhavspj/ubid-os
 
 **Repository Contents**:
 - Complete FastAPI backend with 20+ REST endpoints
@@ -146,8 +146,8 @@ npm start
 ```
 
 **Step 3: Access**
-- Dashboard: http://localhost:3000
-- API Docs: http://localhost:8000/docs
+- Live Dashboard: https://frontend-jayantvaibhav.vercel.app
+- Live API Docs: https://backend-rho-pearl.vercel.app/docs
 
 ### What to Explore
 1. **Dashboard** — View 225 total records, 86 UBIDs created, 13 ghost businesses detected
@@ -192,7 +192,7 @@ The unique angle is Ghost Business Detection — a critical fraud and compliance
 ✅ Screenshots: 3 images showing main features
 ✅ Video URL: Link to demo video
 ✅ Presentation: 12-slide deck included
-✅ Demo Link: Local application accessible at http://localhost:3000
+✅ Demo Link: Live application at https://frontend-jayantvaibhav.vercel.app
 ✅ Repository URL: GitHub link provided
 ✅ Source Code: Complete .zip file with all code
 ✅ Instructions: Step-by-step guide to run application
