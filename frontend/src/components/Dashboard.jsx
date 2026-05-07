@@ -16,18 +16,22 @@ const Dashboard = () => {
   const fetchData = async () => {
     const apiUrl = process.env.REACT_APP_API_URL || 'https://backend-rho-pearl.vercel.app';
     try {
-      const [statsRes, statusRes] = await Promise.all([
-        axios.get(`${apiUrl}/api/statistics`),
-        axios.get(`${apiUrl}/api/analytics/status-distribution`)
-      ]);
-      
+      const statsRes = await axios.get(`${apiUrl}/api/statistics`);
       setStatistics(statsRes.data);
-      setStatusDistribution(statusRes.data);
+      
+      // Set default status distribution
+      const statusData = {
+        ACTIVE: statsRes.data.active_businesses || 0,
+        DORMANT: statsRes.data.dormant_businesses || 0,
+        GHOST: statsRes.data.ghost_businesses || 0,
+        CLOSED: (statsRes.data.total_records || 0) - (statsRes.data.active_businesses || 0) - (statsRes.data.dormant_businesses || 0) - (statsRes.data.ghost_businesses || 0)
+      };
+      setStatusDistribution(statusData);
       setLoading(false);
     } catch (err) {
-      setError('Failed to load dashboard data');
+      console.error('API Error:', err);
+      setError('Failed to load dashboard data. Please try refreshing the page.');
       setLoading(false);
-      console.error(err);
     }
   };
 
