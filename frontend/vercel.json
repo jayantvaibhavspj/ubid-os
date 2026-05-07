@@ -1,13 +1,7 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "./build",
+  "outputDirectory": "build",
   "env": {
     "REACT_APP_API_URL": "https://backend-rho-pearl.vercel.app"
-  },
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ]
+  }
 }
