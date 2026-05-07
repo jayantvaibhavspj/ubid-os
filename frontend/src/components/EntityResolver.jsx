@@ -30,11 +30,12 @@ const EntityResolver = () => {
       return;
     }
 
+    const apiUrl = process.env.REACT_APP_API_URL || 'https://backend-rho-pearl.vercel.app';
     setLoading(true);
     setError(null);
 
     try {
-      const res = await axios.post('http://localhost:8000/api/resolve', records);
+      const res = await axios.post(`${apiUrl}/api/resolve`, records);
       setMatches(res.data.matches);
     } catch (err) {
       setError('Failed to resolve entities');

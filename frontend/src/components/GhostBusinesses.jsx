@@ -14,8 +14,9 @@ const GhostBusinesses = () => {
   }, []);
 
   const fetchGhostBusinesses = async () => {
+    const apiUrl = process.env.REACT_APP_API_URL || 'https://backend-rho-pearl.vercel.app';
     try {
-      const res = await axios.get('http://localhost:8000/api/ghost-businesses');
+      const res = await axios.get(`${apiUrl}/api/ghost-businesses`);
       setGhosts(res.data.ghost_businesses || []);
       setLoading(false);
     } catch (err) {

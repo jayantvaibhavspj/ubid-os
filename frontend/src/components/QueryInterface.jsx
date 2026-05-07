@@ -17,6 +17,7 @@ const QueryInterface = () => {
   ];
 
   const handleQuery = async () => {
+    const apiUrl = process.env.REACT_APP_API_URL || 'https://backend-rho-pearl.vercel.app';
     setLoading(true);
     setError(null);
 
@@ -24,15 +25,15 @@ const QueryInterface = () => {
       let res;
       switch (queryType) {
         case 'ghost-by-status':
-          res = await axios.get('http://localhost:8000/api/ghost-businesses');
+          res = await axios.get(`${apiUrl}/api/ghost-businesses`);
           setResults(res.data.ghost_businesses || []);
           break;
         case 'active':
-          res = await axios.get('http://localhost:8000/api/active-businesses');
+          res = await axios.get(`${apiUrl}/api/active-businesses`);
           setResults(res.data.active_businesses || []);
           break;
         case 'dormant':
-          res = await axios.get('http://localhost:8000/api/dormant-businesses');
+          res = await axios.get(`${apiUrl}/api/dormant-businesses`);
           setResults(res.data.dormant_businesses || []);
           break;
         case 'by-pincode':
@@ -41,7 +42,7 @@ const QueryInterface = () => {
             setLoading(false);
             return;
           }
-          res = await axios.get(`http://localhost:8000/api/query/ghost-by-pincode/${pincode}`);
+          res = await axios.get(`${apiUrl}/api/query/ghost-by-pincode/${pincode}`);
           setResults(res.data.ghost_businesses || []);
           break;
         default:

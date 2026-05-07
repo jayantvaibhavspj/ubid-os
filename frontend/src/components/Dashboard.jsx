@@ -14,10 +14,11 @@ const Dashboard = () => {
   }, []);
 
   const fetchData = async () => {
+    const apiUrl = process.env.REACT_APP_API_URL || 'https://backend-rho-pearl.vercel.app';
     try {
       const [statsRes, statusRes] = await Promise.all([
-        axios.get('http://localhost:8000/api/statistics'),
-        axios.get('http://localhost:8000/api/analytics/status-distribution')
+        axios.get(`${apiUrl}/api/statistics`),
+        axios.get(`${apiUrl}/api/analytics/status-distribution`)
       ]);
       
       setStatistics(statsRes.data);
