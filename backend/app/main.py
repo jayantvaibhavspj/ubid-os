@@ -154,14 +154,20 @@ def get_dormant_businesses():
 @app.post("/api/resolve")
 def resolve_entities(records: List[DepartmentRecord]):
     """Resolve entity matching for given records"""
-    record_dicts = [r.dict() for r in records]
-    matches = resolver.find_duplicates(record_dicts)
-    
-    return {
-        "total_records": len(records),
-        "matches_found": len(matches),
-        "matches": matches
-    }
+    try:
+        record_dicts = [r.dict() for r in records]
+        matches = resolver.find_duplicates(record_dicts)
+        
+        return {
+            "total_records": len(records),
+            "matches_found": len(matches),
+            "matches": matches
+        }
+    except Exception as e:
+        print(f"Error in resolve_entities: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Error resolving entities: {str(e)}")
 
 @app.get("/api/review-queue")
 def get_review_queue(status: str = "PENDING"):

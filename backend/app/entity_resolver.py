@@ -254,7 +254,7 @@ class EntityResolver:
         
         return confidence_score, signals
     
-    def resolve_entity(self, record1: Dict, record2: Dict) -> Dict:
+    def resolve_entity(self, record1: Dict, record2: Dict, idx1: int = None, idx2: int = None) -> Dict:
         """
         Resolve if two records represent the same entity
         Returns match result with recommendation
@@ -269,9 +269,15 @@ class EntityResolver:
         else:
             recommendation = "SEPARATE"
         
+        # Get IDs with fallback to record_id or index
+        record_1_id = record1.get('record_id') or record1.get('id') or f"record_{idx1}"
+        record_2_id = record2.get('record_id') or record2.get('id') or f"record_{idx2}"
+        
         return {
-            'record_1_id': record1.get('id'),
-            'record_2_id': record2.get('id'),
+            'record_1_id': record_1_id,
+            'record_2_id': record_2_id,
+            'record_1_name': record1.get('business_name', 'N/A'),
+            'record_2_name': record2.get('business_name', 'N/A'),
             'confidence_score': confidence_score,
             'match_signals': signals,
             'recommendation': recommendation
@@ -294,7 +300,7 @@ class EntityResolver:
         
         for i in range(n):
             for j in range(i + 1, n):
-                match_result = self.resolve_entity(records[i], records[j])
+                match_result = self.resolve_entity(records[i], records[j], idx1=i, idx2=j)
                 
                 # Only include matches above review threshold
                 if match_result['confidence_score'] >= self.REVIEW_THRESHOLD:
