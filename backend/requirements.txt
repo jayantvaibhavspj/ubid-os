@@ -1,0 +1,15 @@
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+sqlalchemy==2.0.25
+psycopg2-binary==2.9.9
+pydantic==2.5.3
+python-multipart==0.0.6
+jellyfish==1.0.3
+fuzzywuzzy==0.18.0
+python-Levenshtein==0.23.0
+pandas==2.1.4
+numpy==1.26.3
+redis==5.0.1
+python-dotenv==1.0.0
+faker==22.0.0
+metaphone==0.6
