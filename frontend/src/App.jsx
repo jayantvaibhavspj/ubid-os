@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Activity, Ghost, Database, FileSearch, BarChart3 } from 'lucide-react';
 import Dashboard from './components/Dashboard';
 import GhostBusinesses from './components/GhostBusinesses';

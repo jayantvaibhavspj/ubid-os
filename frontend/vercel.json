@@ -1,14 +1,7 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "./build",
-  "env": {
-    "REACT_APP_API_URL": "@ubid-os-backend-url"
-  },
   "routes": [
-    {
-      "src": "^/api/(.*)",
-      "dest": "http://localhost:8000/api/$1"
-    },
     {
       "src": "/(.*)",
       "dest": "/index.html"
